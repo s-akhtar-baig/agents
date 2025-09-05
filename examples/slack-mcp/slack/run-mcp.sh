@@ -12,7 +12,8 @@ podman pull ghcr.io/korotovsky/slack-mcp-server:latest
 
 podman run -d \
     --name slack-mcp-server \
-    -e SLACK_MCP_XOXP_TOKEN=${SLACK_MCP_TOKEN} \
+    --replace \
+    -e SLACK_MCP_XOXP_TOKEN="${SLACK_MCP_TOKEN}" \
     -e SLACK_MCP_LOG_LEVEL=debug \
     -e SLACK_MCP_HOST=0.0.0.0 \
     -p 13080:13080 \

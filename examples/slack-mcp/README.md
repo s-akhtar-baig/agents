@@ -1,7 +1,7 @@
 # Slack MCP Example
 
-This example walks through creating and running a slack MCP server, then connecting it to an LLM using responses API and OAuth tokens. Since Oauth
-tokens offer high levels of granularity, do not expire, and can be rotated automatically in slack, this method is more reliable and easier to manage for production users. However, Slack does also allow for stealth authentication using both a browser and cookie token as well.
+This example walks through creating and running a Slack MCP server, then connecting it to an LLM using responses API and OAuth tokens. Since OAuth
+tokens offer high levels of granularity, do not expire, and can be rotated automatically in Slack, this method is more reliable and easier to manage for production users. However, Slack does also allow for stealth authentication using a combination of a browser and cookie token as well.
 
 *NOTE* that this example is configured to work with a locally hosted llama stack instance and has been tested using QWEN running in a local instance of vLLM. Adjustments may need to be made based on your use case. To set things up to meet those conditions, please see the [llama-stack/local setup tools](../../tools/llama-stack/local/README.md), and the [vllm setup tools](../../tools/vllm/README.md).
 
@@ -31,9 +31,10 @@ For this example, we use a container image based on [slack-mcp-server](https://g
 
 The [slack/run-mcp.sh](./slack/run-mcp.sh) script should handle this automatically for basic use cases. For more details on how to configure the slack-mcp-server container, read the [docs](https://github.com/korotovsky/slack-mcp-server/blob/master/docs/03-configuration-and-usage.md#Using-Docker).
 
-*NOTE* This server binds ports to 127.0.0.1 by default in the container, which is inaccessable from outside port forwards. Please overwrite this by setting this env variable:
-```
--e SLACK_MCP_HOST=0.0.0.0 \
+*NOTE* This server binds ports to 127.0.0.1 by default in the container, which is inaccessible from outside of port forwards. Please override this by setting this env variable:
+
+```sh
+SLACK_MCP_HOST=0.0.0.0
 ```
 
 If you use the `run-mcp.sh` script, it will handle this for you.
@@ -42,18 +43,18 @@ If you use the `run-mcp.sh` script, it will handle this for you.
 
 To run the client side example, you just need to run the Go script `client.go` once the MCP server is running.
 
-If you are using llama stack, you can export the url its hosted at like this:
+If you are using llama stack, you can export the url its hosted at with environment variables so the go client code queries it:
 
 ```sh
-export OPENAI_CLIENT_URL="http://localhost:8000/v1"
+export OPENAI_CLIENT_URL="http://127.0.0.1:8321/v1/openai/v1/"
 ```
 
 1. Run Go mod tidy
-```shell
+```sh
 go mod tidy
 ```
 2. Run the demo script
-```shell
+```sh
 go run client.go
 ```
 

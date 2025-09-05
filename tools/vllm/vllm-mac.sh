@@ -5,8 +5,12 @@ if [ -z "$VIRTUAL_ENV" ]; then
   exit 1
 fi
 
-git clone https://github.com/vllm-project/vllm.git
-cd vllm
+if [ ! -d vllm ]; then
+  git clone https://github.com/vllm-project/vllm.git
+fi
+
+cd vllm || exit 1
+
 uv pip install -r requirements/cpu.txt --extra-index-url https://pypi.org/simple/
 uv pip install -e .
 

@@ -4,7 +4,7 @@ A Python tool for testing Model Context Protocol (MCP) servers using the Anthrop
 
 Why would I use this?
 
-Llama stack and OpenAI use the anthropic MCP library to make calls to MCP tools in their backend. If an error occurs, they usually return a very filtered and usually unhelpful error to the client, making it hard to troubleshoot what went wrong. This simulates the tool calling behavior of the Responses API in both services, allowing you to get detailed error messages, and troubeshoot more narrowly.
+Llama Stack and OpenAI use the Anthropic MCP library to make calls to MCP tools in their backends. If an error occurs, they often return filtered and unhelpful errors to the client, making it hard to troubleshoot. This simulates the tool‑calling behavior of the Responses API in both services, allowing you to get detailed error messages and troubleshoot more narrowly.
 
 ## Features
 
@@ -18,7 +18,6 @@ Llama stack and OpenAI use the anthropic MCP library to make calls to MCP tools 
 
 - Python 3.12+
 - UV package manager
-- Virtual environment support
 
 ## Installation
 
@@ -74,4 +73,3 @@ python test-mcp-server.py
 
 - **Local SSE**: `http://localhost:8080/sse`
 - **Local HTTP**: `http://localhost:8080/mcp`
-- **Container**: `http://localhost:13080/sse`
