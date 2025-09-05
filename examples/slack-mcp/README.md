@@ -13,14 +13,14 @@ tokens offer high levels of granularity, do not expire, and can be rotated autom
 4. Click "Install to Workspace" to install the application if its available, otherwise contact an administrator and click "Request to Install".
 5. Save the "Bot User OAuth Token" to a secure location 
 
-NOTE: There are a set of minimum OAUTH scopes needed for this MCP server to work. If the Bot Token Scopes do not include these scopes, the MCP server will not be able to serve requests.
+NOTE: There are a set of minimum OAuth scopes needed for this MCP server to work. If the Bot Token Scopes do not include these scopes, the MCP server will not be able to serve requests.
 - `channels:read`
 - `groups:read`
 - `mpim:read`
 - `im:read`
+- `users:read`
 
-You can use the [slack/test-oauth.sh](slack/test-oauth.sh) script to verify that your token hase the minimum required scopes.
-
+You can use the [slack/test-oauth.sh](slack/test-oauth.sh) script to verify that your token has the minimum required scopes.
 ```sh
 ./slack/test-oauth.sh
 ```
