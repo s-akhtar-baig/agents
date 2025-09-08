@@ -1,0 +1,29 @@
+{
+    "title": "MCP Discovery Config Entry",
+    "description": "Schema for a single MCP server entry in a discovery ConfigMap.",
+    "type": "object",
+    "properties": {
+	"url": {
+	    "type": "string",
+	    "format": "uri",
+	    "description": "A url through which a connection to the MCP server instance can be established. This should be the full url including any path as required by the transport in use."
+	},
+	"transport": {
+	    "type": "string",
+	    "description": "The transport to use: streaming or sse. If not specified streaming is assumed.",
+	    "enum": ["streaming", "sse"],
+	    "default": "streaming"
+	},
+	"description": {
+	    "type": "string",
+	    "description": "A description of the server."
+	},
+	"logo": {
+	    "type": "string",
+	    "description": "A url to a logo for the server."
+	}
+    },
+    "required": [
+	"url"
+    ]
+}
