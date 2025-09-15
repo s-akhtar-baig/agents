@@ -1,0 +1,48 @@
+version: 2
+image_name: llamastack-safety-demo
+apis:
+- agents
+- inference
+- safety
+- tool_runtime
+providers:
+  inference:
+  - provider_id: ${env.OLLAMA_URL:+ollama}
+    provider_type: remote::ollama
+    config:
+      url: ${env.OLLAMA_URL:=http://localhost:11434}
+  safety:
+  - provider_id: llama-guard
+    provider_type: inline::llama-guard
+    config:
+      excluded_categories: []
+  agents:
+  - provider_id: meta-reference
+    provider_type: inline::meta-reference
+    config:
+      persistence_store:
+        type: sqlite
+        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/custom}/agents_store.db
+      responses_store:
+        type: sqlite
+        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/custom}/responses_store.db
+models:
+- metadata: {}
+  model_id: ${env.INFERENCE_MODEL}
+  provider_id: ollama
+  provider_model_id: null
+- metadata: {}
+  model_id: ${env.SAFETY_MODEL}
+  provider_id: ollama
+  provider_model_id: null
+shields:
+- provider_id: llama-guard
+  shield_id: ${env.SAFETY_MODEL}
+  provider_shield_id: null
+vector_dbs: []
+datasets: []
+scoring_fns: []
+benchmarks: []
+tool_groups: []
+server:
+  port: 8321
