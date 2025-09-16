@@ -5,9 +5,10 @@ apis:
 - inference
 - safety
 - tool_runtime
+- vector_io
 providers:
   inference:
-  - provider_id: ${env.OLLAMA_URL:+ollama}
+  - provider_id: ${env.OLLAMA_URL:=ollama}
     provider_type: remote::ollama
     config:
       url: ${env.OLLAMA_URL:=http://localhost:11434}
@@ -26,18 +27,26 @@ providers:
       responses_store:
         type: sqlite
         db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/custom}/responses_store.db
+  vector_io:
+  - provider_id: ${env.MILVUS_URL:+milvus}
+    provider_type: inline::milvus
+    config:
+      db_path: ${env.MILVUS_DB_PATH:=~/.llama/distributions/custom}/milvus.db
+      kvstore:
+        type: sqlite
+        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/custom}/milvus_registry.db
 models:
 - metadata: {}
-  model_id: ${env.INFERENCE_MODEL}
+  model_id: ${env.INFERENCE_MODEL:=llama3.2:3b}
   provider_id: ollama
   provider_model_id: null
 - metadata: {}
-  model_id: ${env.SAFETY_MODEL}
+  model_id: ${env.SAFETY_MODEL:=llama-guard3:1b}
   provider_id: ollama
   provider_model_id: null
 shields:
 - provider_id: llama-guard
-  shield_id: ${env.SAFETY_MODEL}
+  shield_id: ${env.SAFETY_MODEL:=llama-guard3:1b}
   provider_shield_id: null
 vector_dbs: []
 datasets: []
