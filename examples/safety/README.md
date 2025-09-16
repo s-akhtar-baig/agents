@@ -13,3 +13,49 @@ In Llama Stack, guardrails are represented with the resource "shields". The desi
 To standardize the categories supported by various guardrails, the Llama Stack community is adopting the OpenAI moderations API specification. While Llama Stack will implement the OpenAI specification, it will also include additional categories from sources like Llama Guard and Prompt Guard.
 
 At the time of writing, the Llama Stack client CLI and Python SDK does not support moderations API. Moreover, most of the inline and remote providers do not implement the run_moderation endpoint which presents a potential area of contribution.
+
+## Sample Usage with Llama Stack
+
+**i. Installation and Configuration**
+
+Refer to the [Ollama website](https://ollama.com/download) for instructions on installing Ollama. Once installed, download the required inference and safety models and start the Ollama service.
+
+```
+ollama pull llama3.2:3b
+ollama pull llama-guard3:1b
+ollama serve
+```
+
+Next, install [uv](https://docs.astral.sh/uv) to setup a Python virtual environment.
+
+**ii. Run Llama Stack**
+
+We have provided a custom run.yaml file to specify the required providers. Use the following command to run the Llama Stack with the custom configuration file.
+
+```
+uv run --with llama-stack --with sqlalchemy --with greenlet --with ollama llama stack run run.yaml --image-type venv
+```
+
+**iii. Validate Setup**
+
+Open a new terminal and navigate to the agents directory. Activate your existing virtual environment and use the CLI tool to test your setup.
+
+```
+uv run --with llama-stack-client llama-stack-client configure --endpoint http://localhost:8321 --api-key none
+```
+
+**iv. Run the Sample Code**
+
+We have provided examples under the src directory to showcase content moderation on user input and the target LLM output. Use the following commands to test the desired script(s):
+
+```
+uv run --with llama_stack_client python src/agent.py
+```
+
+```
+uv run --with llama_stack_client --with openai python src/moderations.py
+```
+
+```
+uv run --with llama_stack_client python src/safety_api.py
+```
