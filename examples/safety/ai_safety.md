@@ -22,5 +22,4 @@ Currently, the “moderations” endpoint can be used with two models whereas th
 
 ### 2. Llama Guard
 
-Llama Guard is an LLM-based input-output safeguard model, fine-tuned on data labeled
-according to their taxonomy. Llama Guard includes the applicable taxonomy as the input and uses instruction tasks for classification. This enables users to customize the model input, facilitating adaption to other taxonomies appropriate for their use case with zero-shot or few-shot prompting. Furthermore, Llama Guard uses a slightly different set of categories of harmful content than Open AI’s moderation API.  
+Llama Guard is an LLM-based input-output safeguard model, fine-tuned on data labeled according to their taxonomy. Llama Guard includes the applicable taxonomy as the input and uses instruction tasks for classification. This enables users to customize the model input, facilitating adaption to other taxonomies appropriate for their use case with zero-shot or few-shot prompting. Furthermore, Llama Guard uses a slightly different set of categories of harmful content than Open AI’s moderation API.
